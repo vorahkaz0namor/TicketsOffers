@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="ripple_button">#9F9292</color>
+    <color name="custom_transparent">#00FFFFFF</color>
+    <color name="selected_item">#2261BC</color>
+    <color name="color_5e5f61">#5E5F61</color>
+    <color name="color_0c0c0c">#0C0C0C</color>
+    <color name="color_2f3035">#2F3035</color>
+    <color name="color_9f9f9f">#9F9F9F</color>
+    <color name="color_3e3f43">#3E3F43</color>
+    <color name="color_d9d9d9">#D9D9D9</color>
+</resources>

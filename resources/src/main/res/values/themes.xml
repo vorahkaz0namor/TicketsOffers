@@ -1,0 +1,10 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Base.Theme.TicketsOffers" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    </style>
+
+    <style name="Theme.TicketsOffers" parent="Base.Theme.TicketsOffers" >
+<!--        <item name="android:colorBackground">@color/black</item>-->
+    </style>
+
+</resources>

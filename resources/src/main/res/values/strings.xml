@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tickets Offers</string>
+    <string name="fragment_is_dead" translatable="false">Should not attempt to get binding when Fragment view is destroyed</string>
+    <string name="air_tickets_caption">Авиабилеты</string>
+    <string name="subscriptions">Подписки</string>
+    <string name="shortest_way">Короче</string>
+    <string name="hotels">Отели</string>
+    <string name="profile">Профиль</string>
+</resources>

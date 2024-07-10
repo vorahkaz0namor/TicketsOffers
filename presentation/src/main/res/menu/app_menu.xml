@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/air_tickets"
+        android:enabled="true"
+        android:title="@string/air_tickets_caption"
+        android:icon="@drawable/ic_plane_24"
+        />
+
+    <item
+        android:id="@+id/hotels"
+        android:enabled="true"
+        android:title="@string/hotels"
+        android:icon="@drawable/ic_sofa_24"
+        />
+
+    <item
+        android:id="@+id/shortest_way"
+        android:enabled="true"
+        android:title="@string/shortest_way"
+        android:icon="@drawable/ic_placemark_24"
+        />
+
+    <item
+        android:id="@+id/subscriptions"
+        android:enabled="true"
+        android:title="@string/subscriptions"
+        android:icon="@drawable/ic_bell_24"
+        />
+
+    <item
+        android:id="@+id/profile"
+        android:enabled="true"
+        android:title="@string/profile"
+        android:icon="@drawable/ic_person_24"
+        />
+
+</menu>

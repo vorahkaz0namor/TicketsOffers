@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/search_fields_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="@color/color_3e3f43"
+    app:cardCornerRadius="@dimen/sixteen_dp"
+    android:layout_margin="@dimen/sixteen_dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_search_24"
+            android:paddingStart="@dimen/eight_dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:contentDescription="@string/search_icon_description" />
+
+        <EditText
+            android:id="@+id/from_field"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/search_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.AppTheme.UnderlinedTextField"
+            android:hint="@string/from_field_hint"
+            android:importantForAutofill="no" />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="@dimen/one_dp"
+            app:layout_constraintStart_toEndOf="@id/search_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/from_field"
+            android:background="@color/color_5e5f61"
+            android:layout_marginHorizontal="@dimen/sixteen_dp"
+            />
+
+        <EditText
+            android:id="@+id/to_field"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/line"
+            app:layout_constraintStart_toEndOf="@id/search_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            style="@style/Widget.AppTheme.UnderlinedTextField"
+            android:hint="@string/to_field_hint"
+            android:importantForAutofill="no" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_message">Something\'s going wrong…</string>
+    <string name="title_find_tickets">Поиск дешёвых\nавиабилетов</string>
+    <string name="search_icon_description">Search icon</string>
+    <string name="from_field_hint">Откуда - Москва</string>
+    <string name="to_field_hint">Куда - Турция</string>
+    <string name="under_develop">Under develop</string>
+    <string name="funny_title">Музыкально отлететь</string>
+    <string name="point_image">Point image</string>
+    <string name="flight_icon">Flight icon</string>
+</resources>

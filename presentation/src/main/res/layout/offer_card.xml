@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.AppActivity"
+    >
+
+    <ImageView
+        android:id="@+id/point_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:srcCompat="@drawable/im_die_antwoord"
+        android:contentDescription="@string/point_image"/>
+
+    <TextView
+        android:id="@+id/point_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/point_image"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="@dimen/twelve_dp"
+        android:textSize="@dimen/twenty_two_sp"
+        android:textColor="@color/color_d9d9d9"
+        tools:text="@sample/offers.json/offers/title" />
+
+    <TextView
+        android:id="@+id/point_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/point_description"
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="@dimen/twelve_dp"
+        android:textSize="@dimen/twenty_two_sp"
+        android:textColor="@color/color_d9d9d9"
+        tools:text="@sample/offers.json/offers/town" />
+
+    <ImageView
+        android:id="@+id/flight_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_plane_24"
+        android:layout_marginTop="@dimen/sixteen_dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/point_name"
+        android:contentDescription="@string/flight_icon" />
+
+    <TextView
+        android:id="@+id/point_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/flight_icon"
+        app:layout_constraintBottom_toBottomOf="@id/flight_icon"
+        app:layout_constraintStart_toEndOf="@id/flight_icon"
+        android:paddingStart="@dimen/four_dp"
+        android:textSize="@dimen/twenty_two_sp"
+        android:textColor="@color/color_d9d9d9"
+        tools:text="@sample/offers.json/offers/price/value" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
