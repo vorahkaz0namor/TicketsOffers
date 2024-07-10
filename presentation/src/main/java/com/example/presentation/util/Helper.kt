@@ -8,13 +8,28 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.example.resources.R
 import com.example.presentation.model.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+
+/**
+ * Sets offer image
+ */
+@DrawableRes
+internal val offerImage: (Int) -> Int = { id ->
+    when (id) {
+        1 -> R.drawable.im_die_antwoord
+        2 -> R.drawable.im_sockrat_and_lera
+        3 -> R.drawable.im_lampabickt
+        else -> R.drawable.ic_takeoff_24
+    }
+}
 
 /**
  *  Adjusts resize of the fragment when it overlaps by the other objects

@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import com.example.presentation.R
+import com.example.presentation.adatper.OfferAdapter
 import com.example.presentation.databinding.FragmentMainBinding
 import com.example.presentation.model.UiState.Companion.error
 import com.example.presentation.model.UiState.Companion.loading
@@ -25,6 +26,7 @@ import kotlinx.coroutines.flow.stateIn
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val binding by viewBinding(FragmentMainBinding::bind)
     private val viewModel: TicketsViewModel by activityViewModels()
+    private val offerAdapter = OfferAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,6 +45,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
             }
         }
+        binding.startSearch.offersList.adapter = offerAdapter
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -56,6 +59,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                         startSearch.root.isVisible = state.success
                     }
                 }
+                    .stateIn(this)
+            }
+            viewScopeWithRepeat {
+                offers.mapLatest(offerAdapter::submitList)
                     .stateIn(this)
             }
         }

@@ -2,8 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/sixteen_dp"
     tools:context=".activity.AppActivity"
     >
 
@@ -23,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/point_image"
         app:layout_constraintStart_toStartOf="parent"
         android:paddingTop="@dimen/twelve_dp"
-        android:textSize="@dimen/twenty_two_sp"
+        android:textSize="@dimen/sixteen_sp"
         android:textColor="@color/color_d9d9d9"
         tools:text="@sample/offers.json/offers/title" />
 
@@ -34,7 +35,7 @@
         app:layout_constraintTop_toBottomOf="@id/point_description"
         app:layout_constraintStart_toStartOf="parent"
         android:paddingTop="@dimen/twelve_dp"
-        android:textSize="@dimen/twenty_two_sp"
+        android:textSize="@dimen/fourteen_sp"
         android:textColor="@color/color_d9d9d9"
         tools:text="@sample/offers.json/offers/town" />
 
@@ -56,7 +57,7 @@
         app:layout_constraintBottom_toBottomOf="@id/flight_icon"
         app:layout_constraintStart_toEndOf="@id/flight_icon"
         android:paddingStart="@dimen/four_dp"
-        android:textSize="@dimen/twenty_two_sp"
+        android:textSize="@dimen/fourteen_sp"
         android:textColor="@color/color_d9d9d9"
         tools:text="@sample/offers.json/offers/price/value" />
 
