@@ -8,4 +8,12 @@
     <string name="hotels">Отели</string>
     <string name="profile">Профиль</string>
     <string name="offer_price">от %1$s ₽</string>
+    <string name="hard_route">Сложный\nмаршрут</string>
+    <string name="anywhere">Куда\nугодно</string>
+    <string name="weekend">Выходные</string>
+    <string name="burning_tickets">Горящие\nбилеты</string>
+    <string name="popular_direction">Популярное направление</string>
+    <string name="istanbul">Стамбул</string>
+    <string name="sochi">Сочи</string>
+    <string name="phuket">Пхукет</string>
 </resources>

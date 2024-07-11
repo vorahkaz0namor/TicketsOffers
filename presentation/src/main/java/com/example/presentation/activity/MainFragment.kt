@@ -44,7 +44,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             binding.startSearch.foregroundCard.apply {
                 viewModel.points.value.apply {
                     fromField.setText(departure)
-                    toField.setText(arrival)
+                    toField.text = arrival
                 }
             }
         }
@@ -68,6 +68,13 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 offers.mapLatest(adapter::submitList)
                     .stateIn(this)
             }
+            viewScopeWithRepeat {
+                points.mapLatest {
+                    binding.startSearch.foregroundCard
+                        .toField.text = it.arrival
+                }
+                    .stateIn(this)
+            }
         }
     }
 
@@ -76,8 +83,8 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             binding.startSearch.foregroundCard.fromField.addTextChangedListener { point ->
                 point?.let { viewModel.setDeparturePoint(it.toString()) }
             }
-            binding.startSearch.foregroundCard.toField.addTextChangedListener { point ->
-                point?.let { viewModel.setArrivalPoint(it.toString()) }
+            binding.startSearch.foregroundCard.toField.setOnClickListener {
+                SearchSheet().show(childFragmentManager, SearchSheet.TAG)
             }
         }
     }

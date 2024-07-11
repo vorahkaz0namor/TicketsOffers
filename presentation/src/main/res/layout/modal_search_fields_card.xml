@@ -4,9 +4,8 @@
     android:id="@+id/search_fields_card"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:cardBackgroundColor="@color/color_3e3f43"
+    app:cardBackgroundColor="@color/color_2f3035"
     app:cardCornerRadius="@dimen/sixteen_dp"
-    android:layout_margin="@dimen/sixteen_dp"
     >
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,13 +23,12 @@
             app:layout_constraintBottom_toTopOf="@id/line"
             android:contentDescription="@string/flight_icon" />
 
-        <EditText
+        <TextView
             android:id="@+id/from_field"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppTheme.UnderlinedTextField"
             android:importantForAutofill="no"
-            app:endIconMode="clear_text"
             android:hint="@string/from_field_hint"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/flight_icon"

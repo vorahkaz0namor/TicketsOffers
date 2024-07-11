@@ -46,7 +46,7 @@
             android:layout_marginHorizontal="@dimen/sixteen_dp"
             />
 
-        <EditText
+        <TextView
             android:id="@+id/to_field"
             android:layout_width="@dimen/zero_dp"
             android:layout_height="wrap_content"
