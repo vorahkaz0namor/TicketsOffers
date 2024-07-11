@@ -1,21 +1,20 @@
 package com.example.presentation.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import com.example.presentation.R
-import com.example.presentation.adatper.OfferAdapter
+import com.example.presentation.adatper.MainCompositeAdapter
+import com.example.presentation.adatper.OfferAdapterDelegate
 import com.example.presentation.databinding.FragmentMainBinding
 import com.example.presentation.model.UiState.Companion.error
 import com.example.presentation.model.UiState.Companion.loading
 import com.example.presentation.model.UiState.Companion.success
 import com.example.presentation.util.hideKeyboard
 import com.example.presentation.util.layoutSizeAdjust
-import com.example.presentation.util.logState
 import com.example.presentation.util.viewBinding
 import com.example.presentation.util.viewScopeWithRepeat
 import com.example.presentation.viewmodel.TicketsViewModel
@@ -26,7 +25,11 @@ import kotlinx.coroutines.flow.stateIn
 class MainFragment : Fragment(R.layout.fragment_main) {
     private val binding by viewBinding(FragmentMainBinding::bind)
     private val viewModel: TicketsViewModel by activityViewModels()
-    private val offerAdapter = OfferAdapter()
+    private val adapter by lazy {
+        MainCompositeAdapter.Builder()
+            .add(OfferAdapterDelegate())
+            .build()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -45,7 +48,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 }
             }
         }
-        binding.startSearch.offersList.adapter = offerAdapter
+        binding.startSearch.offersList.adapter = adapter
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -62,7 +65,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                     .stateIn(this)
             }
             viewScopeWithRepeat {
-                offers.mapLatest(offerAdapter::submitList)
+                offers.mapLatest(adapter::submitList)
                     .stateIn(this)
             }
         }
