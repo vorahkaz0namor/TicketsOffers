@@ -1,11 +1,13 @@
 package com.example.presentation.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.model.Offer
 import com.example.data.model.Resource
+import com.example.data.model.TicketOffer
 import com.example.domain.onFailure
 import com.example.domain.onSuccess
 import com.example.domain.useCases.UseCase
@@ -17,6 +19,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -43,12 +46,21 @@ class TicketsViewModel @Inject constructor(
     private val _offers = MutableStateFlow(emptyList<Offer>())
     val offers: StateFlow<List<Offer>>
         get() = _offers.asStateFlow()
+    private val _ticketsOffers = MutableStateFlow(emptyList<TicketOffer>())
+    val ticketsOffers: StateFlow<List<TicketOffer>>
+        get() = _ticketsOffers.asStateFlow()
 
     init {
         viewModelScope.launch {
             prefs.getString(FROM_POINT_KEY, null)?.let { setDeparturePoint(it) }
-            useCase.getOffers().fetchingData { data ->
-                _offers.update { data.offers }
+            useCase.apply {
+                getOffers().fetchingData { offersResponse ->
+                    getTicketsOffers().fetchingData { ticketsOffersResponse ->
+                        _offers.update { offersResponse.offers }
+                        _ticketsOffers.update { ticketsOffersResponse.ticketsOffers }
+                        Log.d("TICKETS OFFERS", "${ticketsOffers.value.map { "$it" }}")
+                    }
+                }
             }
         }
     }
