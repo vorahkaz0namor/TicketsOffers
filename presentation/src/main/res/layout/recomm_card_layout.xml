@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:paddingVertical="@dimen/eight_dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/recomm_icon"
+            android:layout_width="@dimen/twenty_four_dp"
+            android:layout_height="@dimen/twenty_four_dp"
+            tools:cardBackgroundColor="@color/color_ff5e5e"
+            app:cardCornerRadius="@dimen/fifty_dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+             />
+
+        <TextView
+            android:id="@+id/point_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppTheme.AdviceTextView"
+            tools:text="@string/hard_route"
+            tools:textColor="@color/color_5e5f61"
+            android:textStyle="italic"
+            app:layout_constraintTop_toTopOf="@id/recomm_icon"
+            app:layout_constraintStart_toEndOf="@id/recomm_icon"
+            app:layout_constraintBottom_toTopOf="@id/point_time_range"
+            />
+
+        <TextView
+            android:id="@+id/point_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppTheme.AdviceTextView"
+            tools:text="@string/ticket_offer_price"
+            android:textColor="@color/color_2261bc"
+            android:textStyle="italic"
+            android:paddingEnd="@dimen/four_dp"
+            app:layout_constraintTop_toTopOf="@id/point_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/point_name"
+            />
+
+        <TextView
+            android:id="@+id/point_time_range"
+            android:layout_width="@dimen/zero_dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/point_name"
+            app:layout_constraintStart_toEndOf="@id/recomm_icon"
+            app:layout_constraintEnd_toEndOf="@id/point_price"
+            app:layout_constraintBottom_toBottomOf="@id/recomm_icon"
+            android:layout_marginStart="@dimen/eight_dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            tools:textColor="@color/color_5e5f61"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fourteen_sp"
+            tools:text="@string/fragment_is_dead"
+            />
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/one_dp"
+            app:layout_constraintTop_toBottomOf="@id/point_time_range"
+            android:background="@color/color_5e5f61"
+            android:layout_marginTop="@dimen/eight_dp"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
