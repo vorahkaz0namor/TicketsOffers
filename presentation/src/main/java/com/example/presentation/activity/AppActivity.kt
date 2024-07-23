@@ -57,7 +57,7 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
                             if (appNavController.currentDestination?.id == R.id.startSearchFragment)
                                 R.id.action_searchFragment_to_stubFragment
                             else
-                                R.id.action_repeat_to_stubFragment
+                                R.id.stubFragment
                         )
                         true
                     }

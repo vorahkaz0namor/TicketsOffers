@@ -8,6 +8,8 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
+import androidx.annotation.ColorInt
+import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -30,6 +32,16 @@ internal val offerImage: (Int) -> Int = { id ->
         else -> R.drawable.ic_takeoff_24
     }
 }
+
+/**
+ * Get ticketOffer color
+ */
+internal fun ticketOfferColor(id: Int): Int =
+    when (id) {
+        1 -> R.color.color_ff5e5e
+        10 -> R.color.color_2261bc
+        else -> R.color.white
+    }
 
 /**
  *  Adjusts resize of the fragment when it overlaps by the other objects

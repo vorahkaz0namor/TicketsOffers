@@ -15,8 +15,8 @@ class OfferViewHolder(
             pointDescription.text = offer.title
             pointName.text = offer.town
             pointPrice.text = root.context.getString(
-                R.string.offer_price,
-                offer.price.value.toString()
+                /* resId = */ R.string.offer_price,
+                /* ...formatArgs = */ offer.price.value.toString()
             )
         }
     }

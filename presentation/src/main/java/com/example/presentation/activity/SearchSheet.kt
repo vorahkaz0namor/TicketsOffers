@@ -1,16 +1,19 @@
 package com.example.presentation.activity
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.presentation.R
 import com.example.presentation.adatper.AdviceAdapterDelegate
 import com.example.presentation.adatper.HintAdapterDelegate
 import com.example.presentation.adatper.MainCompositeAdapter
 import com.example.presentation.databinding.SearchSheetLayoutBinding
 import com.example.presentation.model.OfferHint
+import com.example.presentation.util.hideKeyboard
 import com.example.presentation.util.layoutSizeAdjust
 import com.example.presentation.util.viewBinding
 import com.example.presentation.util.viewScopeWithRepeat
@@ -26,7 +29,6 @@ class SearchSheet : BottomSheetDialogFragment(R.layout.search_sheet_layout) {
     private val hintsAdapter by lazy {
         MainCompositeAdapter.Builder()
             .add(HintAdapterDelegate())
-            .add(AdviceAdapterDelegate())
             .build()
     }
     private val advicesAdapter by lazy {
@@ -76,11 +78,23 @@ class SearchSheet : BottomSheetDialogFragment(R.layout.search_sheet_layout) {
                 toField.addTextChangedListener { point ->
                     point?.let { viewModel.setArrivalPoint(it.toString()) }
                 }
+                toField.setOnKeyListener { _, keyCode, _ ->
+                    if (keyCode == KeyEvent.KEYCODE_NAVIGATE_NEXT ||
+                        keyCode == KeyEvent.KEYCODE_ENTER ||
+                        keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)
+                            findNavController().navigate(R.id.ticketsOffersFragment)
+                    true
+                }
                 clearIcon.setOnClickListener {
                     viewModel.clearArrivalPoint()
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        hideKeyboard(binding.root)
+        super.onStop()
     }
 
     companion object {

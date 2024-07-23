@@ -14,5 +14,8 @@ data class TicketOffer(
     override fun content(): Any = this
 
     override fun toString(): String =
-        "title = $title, price = ${price.value}\n"
+        "id = $id, title = $title, price = ${price.value}\n"
+
+    fun timeRangeToString() =
+        buildString { timeRange.map { append("$it ") } }
 }

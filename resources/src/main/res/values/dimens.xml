@@ -13,8 +13,14 @@
     <dimen name="sixteen_dp">16dp</dimen>
     <dimen name="sixteen_sp">16sp</dimen>
     <dimen name="seventeen_dp">17dp</dimen>
+    <dimen name="twenty_sp">20sp</dimen>
     <dimen name="twenty_two_sp">22sp</dimen>
     <dimen name="twenty_four_dp">24dp</dimen>
+    <dimen name="thirty_three_dp">33dp</dimen>
     <dimen name="thirty_eight_dp">38dp</dimen>
+    <dimen name="forty_two_dp">42dp</dimen>
+    <dimen name="fifty_dp">50dp</dimen>
+    <dimen name="fifty_five_dp">55dp</dimen>
     <dimen name="fifty_six_dp">56dp</dimen>
+    <dimen name="eighty_nine_dp">89dp</dimen>
 </resources>

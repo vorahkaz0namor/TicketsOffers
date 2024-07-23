@@ -14,6 +14,9 @@
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/stubFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_ticketsOffersFragment"
+            app:destination="@id/ticketsOffersFragment" />
     </fragment>
 
     <fragment
@@ -26,5 +29,10 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/stubFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/ticketsOffersFragment"
+        android:name="com.example.presentation.activity.TicketsOffersFragment"
+        tools:layout="@layout/fragment_tickets_offers" />
 
 </navigation>

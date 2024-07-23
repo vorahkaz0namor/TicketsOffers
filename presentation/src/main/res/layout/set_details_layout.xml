@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="@dimen/sixteen_dp"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/comeback_date"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/zero_dp"
+        style="@style/Widget.AppTheme.DetailCardView">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/eight_dp"
+            android:layout_gravity="center"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/add_icon"
+                style="@style/Widget.AppTheme.IconOnDetailCard"
+                android:contentDescription="@string/add_comeback_date"
+                app:srcCompat="@drawable/ic_add_24"
+                />
+
+            <TextView
+                android:id="@+id/from_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppTheme.TextOnDetailCard"
+                android:text="@string/comeback_the_word" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/takeoff_date"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/comeback_date"
+        style="@style/Widget.AppTheme.DetailCardView">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/eight_dp"
+            android:layout_gravity="center"
+            >
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppTheme.TextOnDetailCard"
+            android:text="@string/takeoff_date_example" />
+
+        <TextView
+            android:id="@+id/week_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Widget.AppTheme.TextOnDetailCard"
+            android:textColor="@color/color_9f9f9f"
+            android:text="@string/takeoff_week_day_example" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/passengers_and_class"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/takeoff_date"
+        style="@style/Widget.AppTheme.DetailCardView">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/eight_dp"
+            android:layout_gravity="center"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/passenger_icon"
+                style="@style/Widget.AppTheme.IconOnDetailCard"
+                android:contentDescription="@string/passengers_icon"
+                app:srcCompat="@drawable/ic_person_24"
+                />
+
+            <TextView
+                android:id="@+id/passengers_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppTheme.TextOnDetailCard"
+                android:text="@string/pass_count_and_class" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/filters"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/passengers_and_class"
+        android:layout_marginStart="@dimen/sixteen_dp"
+        style="@style/Widget.AppTheme.DetailCardView">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingHorizontal="@dimen/eight_dp"
+            android:layout_gravity="center"
+            tools:ignore="UseCompoundDrawables">
+
+            <ImageView
+                android:id="@+id/filters_icon"
+                style="@style/Widget.AppTheme.IconOnDetailCard"
+                android:contentDescription="@string/filters_icon"
+                app:srcCompat="@drawable/ic_filters_16"
+                />
+
+            <TextView
+                android:id="@+id/filters_word_on_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/Widget.AppTheme.TextOnDetailCard"
+                android:text="@string/filters_the_word" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
