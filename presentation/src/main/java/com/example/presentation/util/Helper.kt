@@ -19,6 +19,21 @@ import com.example.resources.R
 import com.example.presentation.model.UiState
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import java.text.FieldPosition
+import java.text.NumberFormat
+import java.util.Locale
+
+/**
+ * Price formatting
+ */
+internal val formatPrice = { price: Int ->
+    NumberFormat
+        .getInstance(Locale("ru", "RU"))
+        .run {
+            isGroupingUsed = true
+            format(price)
+        }
+}
 
 /**
  * Sets offer image

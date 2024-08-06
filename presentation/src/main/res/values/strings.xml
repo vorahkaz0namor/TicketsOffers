@@ -21,4 +21,5 @@
     <string name="takeoff_date_example">24 фев</string>
     <string name="takeoff_week_day_example">, сб</string>
     <string name="show_all_tickets">Посмотреть все билеты</string>
+    <string name="back_button">Back button</string>
 </resources>

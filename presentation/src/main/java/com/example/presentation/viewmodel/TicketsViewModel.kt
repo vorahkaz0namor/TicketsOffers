@@ -58,7 +58,6 @@ class TicketsViewModel @Inject constructor(
                     getTicketsOffers().fetchingData { ticketsOffersResponse ->
                         _offers.update { offersResponse.offers }
                         _ticketsOffers.update { ticketsOffersResponse.ticketsOffers }
-                        Log.d("TICKETS OFFERS", "${ticketsOffers.value.map { "$it" }}")
                     }
                 }
             }

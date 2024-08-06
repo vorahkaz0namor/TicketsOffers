@@ -31,6 +31,10 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/hint_card" />
 
+    <include
+        android:id="@+id/hints"
+        layout="@layout/hints_layout"/>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/background_card"
         android:layout_width="match_parent"
