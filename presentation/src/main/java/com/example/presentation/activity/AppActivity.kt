@@ -1,7 +1,6 @@
 package com.example.presentation.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.SystemBarStyle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +16,7 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class AppActivity : AppCompatActivity(R.layout.activity_app) {
     private lateinit var appNavController: NavController
+    private lateinit var navBar: NavigationBarView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +42,11 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
             insets
         }
         appNavController = findNavController(viewId = R.id.nav_host_fragment)
+        navBar = findViewById(R.id.bottom_nav_bar)
     }
 
     private fun setupListeners() {
-        findViewById<NavigationBarView>(R.id.bottom_nav_bar)
-            .setOnItemSelectedListener { item ->
+        navBar.setOnItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.air_tickets -> {
                         appNavController.navigate(R.id.nav_main)
@@ -55,7 +55,7 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
                     else -> {
                         appNavController.navigate(
                             if (appNavController.currentDestination?.id == R.id.startSearchFragment)
-                                R.id.action_searchFragment_to_stubFragment
+                                R.id.action_startSearchFragment_to_stubFragment
                             else
                                 R.id.stubFragment
                         )
@@ -63,5 +63,9 @@ class AppActivity : AppCompatActivity(R.layout.activity_app) {
                     }
                 }
             }
+        appNavController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id != R.id.stubFragment)
+                navBar.menu.findItem(R.id.air_tickets).setChecked(true)
+        }
     }
 }

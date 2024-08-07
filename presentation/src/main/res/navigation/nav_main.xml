@@ -10,13 +10,13 @@
         android:name="com.example.presentation.activity.MainFragment"
         tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_searchFragment_to_stubFragment"
+            android:id="@+id/action_startSearchFragment_to_searchSheetFragment"
+            app:destination="@id/searchSheetFragment" />
+        <action
+            android:id="@+id/action_startSearchFragment_to_stubFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/stubFragment" />
-        <action
-            android:id="@+id/action_searchFragment_to_ticketsOffersFragment"
-            app:destination="@id/ticketsOffersFragment" />
     </fragment>
 
     <fragment
@@ -25,6 +25,20 @@
         tools:layout="@layout/fragment_stub">
         <action
             android:id="@+id/action_repeat_to_stubFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:destination="@id/stubFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/searchSheetFragment"
+        android:name="com.example.presentation.activity.SearchSheet"
+        tools:layout="@layout/search_sheet_layout">
+        <action
+            android:id="@+id/action_searchFragment_to_ticketsOffersFragment"
+            app:destination="@id/ticketsOffersFragment" />
+        <action
+            android:id="@+id/action_searchSheetFragment_to_stubFragment"
             app:enterAnim="@anim/nav_default_enter_anim"
             app:exitAnim="@anim/nav_default_exit_anim"
             app:destination="@id/stubFragment" />

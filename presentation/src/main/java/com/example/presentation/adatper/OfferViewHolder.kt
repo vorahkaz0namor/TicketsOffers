@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.data.model.Offer
 import com.example.resources.R
 import com.example.presentation.databinding.OfferCardBinding
+import com.example.presentation.util.formatPrice
 import com.example.presentation.util.offerImage
 
 class OfferViewHolder(
@@ -16,7 +17,7 @@ class OfferViewHolder(
             pointName.text = offer.town
             pointPrice.text = root.context.getString(
                 /* resId = */ R.string.offer_price,
-                /* ...formatArgs = */ offer.price.value.toString()
+                /* ...formatArgs = */ formatPrice(offer.price.value)
             )
         }
     }
