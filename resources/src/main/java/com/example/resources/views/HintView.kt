@@ -1,7 +1,6 @@
 package com.example.resources.views
 
 import android.content.Context
-import android.text.Layout.Alignment
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.withStyledAttributes
 import com.example.resources.R
-import kotlin.math.absoluteValue
 import kotlin.math.ceil
 
 class HintView @JvmOverloads constructor(
@@ -38,9 +36,11 @@ class HintView @JvmOverloads constructor(
             /* bottom = */ 0
             )
         textSize = ceil(resources.getDimension(R.dimen.fourteen_sp) / resources.displayMetrics.density)
-        textAlignment = View.TEXT_ALIGNMENT_GRAVITY
+        textAlignment = TEXT_ALIGNMENT_CENTER
         setTextColor(resources.getColor(R.color.color_d9d9d9, context.theme))
     }
+    val hintText: String
+        get() = textView.text.toString()
 
     init {
         orientation = VERTICAL
@@ -51,11 +51,11 @@ class HintView @JvmOverloads constructor(
             /* bottom = */ 0
         )
         context.withStyledAttributes(attributeSet, R.styleable.HintView) {
-            val imageResId = getResourceId(R.styleable.HintView_srcCompat, 0)
+            val imageResId = getResourceId(R.styleable.HintView_hintIcon, 0)
             if (imageResId != 0) {
                 imageView.setImageResource(imageResId)
             }
-            textView.text = getString(R.styleable.HintView_android_text)
+            textView.text = getString(R.styleable.HintView_hintText)
         }
         addView(imageView)
         addView(textView)

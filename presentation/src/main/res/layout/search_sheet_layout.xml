@@ -21,16 +21,6 @@
         android:id="@+id/search_card"
         layout="@layout/modal_search_fields_card" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/offers_list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center"
-        android:paddingTop="@dimen/sixteen_dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/hint_card" />
-
     <include
         android:id="@+id/hints"
         layout="@layout/hints_layout"/>

@@ -12,32 +12,32 @@
         android:id="@+id/hard_route"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_hard_route_hint_48"
-        android:text="@string/hard_route"
+        app:hintIcon="@drawable/ic_hard_route_hint_48"
+        app:hintText="@string/hard_route"
         />
 
     <com.example.resources.views.HintView
         android:id="@+id/anywhere"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_anywhere_hint_48"
-        android:text="@string/anywhere"
+        app:hintIcon="@drawable/ic_anywhere_hint_48"
+        app:hintText="@string/anywhere"
         />
 
     <com.example.resources.views.HintView
         android:id="@+id/weekend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_weekend_hint_48"
-        android:text="@string/weekend"
+        app:hintIcon="@drawable/ic_weekend_hint_48"
+        app:hintText="@string/weekend"
         />
 
     <com.example.resources.views.HintView
         android:id="@+id/burnings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_burnings_hint_48"
-        android:text="@string/burning_tickets"
+        app:hintIcon="@drawable/ic_burnings_hint_48"
+        app:hintText="@string/burning_tickets"
         />
 
 </LinearLayout>

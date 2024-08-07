@@ -6,14 +6,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.presentation.databinding.AdviceCardBinding
 import com.example.presentation.model.OfferHint
 
-class AdviceAdapterDelegate : DelegateAdapter<OfferHint, AdviceViewHolder>(OfferHint::class.java) {
+class AdviceAdapterDelegate(
+    private val onInteractionListener: OnInteractionListener
+) : DelegateAdapter<OfferHint, AdviceViewHolder>(OfferHint::class.java) {
     override fun createViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
         AdviceViewHolder(
             AdviceCardBinding.inflate(
                 /* inflater = */ LayoutInflater.from(parent.context),
                 /* parent = */ parent,
                 /* attachToParent = */ false
-            )
+            ),
+            onInteractionListener
         )
 
     override fun bindViewHolder(model: OfferHint, viewHolder: AdviceViewHolder) {
