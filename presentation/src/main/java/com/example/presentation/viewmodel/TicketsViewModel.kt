@@ -87,11 +87,11 @@ class TicketsViewModel @Inject constructor(
     }
 
     fun sheetIsShown() {
-        _sheetIsShown.value = true
+        _sheetIsShown.update { true }
     }
 
     fun sheetIsDismissed() {
-        _sheetIsShown.value = false
+        _sheetIsShown.update { false }
     }
 
     fun reversePoints() {
@@ -101,6 +101,7 @@ class TicketsViewModel @Inject constructor(
                 arrival = it.departure
             )
         }
+        pointFromAdvice.value?.let { _pointFromAdvice.update { null } }
     }
 
     /**

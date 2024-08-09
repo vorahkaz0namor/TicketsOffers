@@ -17,8 +17,11 @@ class HintView @JvmOverloads constructor(
     defStyleAttr: Int = 0,
     defStyleRes: Int = 0
 ): LinearLayout(context, attributeSet, defStyleAttr, defStyleRes) {
-    private val eightDpExtracted = resources.getDimensionPixelSize(R.dimen.eight_dp)
-    private val sixteenDpExtracted = resources.getDimensionPixelSize(R.dimen.sixteen_dp)
+    private val deviceDensity = resources.displayMetrics.density
+    private val eightDp = resources.getDimensionPixelSize(R.dimen.eight_dp)
+    private val tenSp = resources.getDimension(R.dimen.ten_sp)
+    private val twelveSp = resources.getDimension(R.dimen.twelve_sp)
+    private val sixteenDp = resources.getDimensionPixelSize(R.dimen.twelve_dp)
     private inline fun <reified T : View> T.commonParams() =
         apply {
             layoutParams = LayoutParams(
@@ -31,11 +34,17 @@ class HintView @JvmOverloads constructor(
     private val textView = TextView(context).commonParams().apply {
         setPadding(
             /* left = */ 0,
-            /* top = */ eightDpExtracted,
+            /* top = */ eightDp,
             /* right = */ 0,
             /* bottom = */ 0
             )
-        textSize = ceil(resources.getDimension(R.dimen.fourteen_sp) / resources.displayMetrics.density)
+        textSize = ceil(
+            (if (deviceDensity > 1.75)
+                tenSp
+            else
+                twelveSp)
+                    / deviceDensity
+        )
         textAlignment = TEXT_ALIGNMENT_CENTER
         setTextColor(resources.getColor(R.color.color_d9d9d9, context.theme))
     }
@@ -45,9 +54,9 @@ class HintView @JvmOverloads constructor(
     init {
         orientation = VERTICAL
         setPadding(
-            /* left = */ sixteenDpExtracted,
+            /* left = */ sixteenDp,
             /* top = */ 0,
-            /* right = */ sixteenDpExtracted,
+            /* right = */ sixteenDp,
             /* bottom = */ 0
         )
         context.withStyledAttributes(attributeSet, R.styleable.HintView) {
