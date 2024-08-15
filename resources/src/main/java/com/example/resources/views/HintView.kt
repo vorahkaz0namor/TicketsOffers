@@ -3,7 +3,6 @@ package com.example.resources.views
 import android.content.Context
 import android.util.AttributeSet
 import android.view.Gravity
-import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -19,32 +18,27 @@ class HintView @JvmOverloads constructor(
 ): LinearLayout(context, attributeSet, defStyleAttr, defStyleRes) {
     private val deviceDensity = resources.displayMetrics.density
     private val eightDp = resources.getDimensionPixelSize(R.dimen.eight_dp)
-    private val tenSp = resources.getDimension(R.dimen.ten_sp)
     private val twelveSp = resources.getDimension(R.dimen.twelve_sp)
-    private val sixteenDp = resources.getDimensionPixelSize(R.dimen.twelve_dp)
-    private inline fun <reified T : View> T.commonParams() =
-        apply {
-            layoutParams = LayoutParams(
-                /* width = */ LayoutParams.WRAP_CONTENT,
-                /* height = */ LayoutParams.WRAP_CONTENT,
-            )
-            gravity = Gravity.CENTER
-        }
-    private val imageView = ImageView(context).commonParams()
-    private val textView = TextView(context).commonParams().apply {
+    private val imageView = ImageView(context).apply {
+        layoutParams = LayoutParams(
+            LayoutParams.WRAP_CONTENT,
+            LayoutParams.WRAP_CONTENT
+        )
+        gravity = Gravity.CENTER
+    }
+    private val textView = TextView(context).apply {
+        layoutParams = LayoutParams(
+            LayoutParams.MATCH_PARENT,
+            LayoutParams.WRAP_CONTENT
+        )
+        gravity = Gravity.CENTER
         setPadding(
             /* left = */ 0,
             /* top = */ eightDp,
             /* right = */ 0,
             /* bottom = */ 0
             )
-        textSize = ceil(
-            (if (deviceDensity > 1.75)
-                tenSp
-            else
-                twelveSp)
-                    / deviceDensity
-        )
+        textSize = ceil(twelveSp / deviceDensity)
         textAlignment = TEXT_ALIGNMENT_CENTER
         setTextColor(resources.getColor(R.color.color_d9d9d9, context.theme))
     }
@@ -53,12 +47,6 @@ class HintView @JvmOverloads constructor(
 
     init {
         orientation = VERTICAL
-        setPadding(
-            /* left = */ sixteenDp,
-            /* top = */ 0,
-            /* right = */ sixteenDp,
-            /* bottom = */ 0
-        )
         context.withStyledAttributes(attributeSet, R.styleable.HintView) {
             val imageResId = getResourceId(R.styleable.HintView_hintIcon, 0)
             if (imageResId != 0) {
