@@ -1,6 +1,7 @@
 package com.example.presentation.util
 
 import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.os.Build
 import android.util.Log
@@ -17,11 +18,34 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.resources.R
 import com.example.presentation.model.UiState
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.text.FieldPosition
 import java.text.NumberFormat
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.time.format.TextStyle
 import java.util.Locale
+
+/**
+ * Date representation
+ */
+internal val dateRepresentation = { value: OffsetDateTime ->
+    value.format(
+        DateTimeFormatter.ofPattern("dd MMM")
+    )
+}
+
+/**
+ * Day of week representation
+ */
+internal val dayOfWeekRepresentation = { value: OffsetDateTime ->
+    value.dayOfWeek.getDisplayName(
+        TextStyle.SHORT,
+        Locale("ru", "RU")
+    )
+}
 
 /**
  * Price formatting
