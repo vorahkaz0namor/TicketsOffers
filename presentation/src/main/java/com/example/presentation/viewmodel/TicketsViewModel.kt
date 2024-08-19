@@ -1,6 +1,7 @@
 package com.example.presentation.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -37,15 +38,9 @@ class TicketsViewModel @Inject constructor(
     private val _points = MutableStateFlow(Points())
     val points: StateFlow<Points>
         get() = _points.asStateFlow()
-    private val _pointWasCleared = MutableStateFlow(false)
-    val pointWasCleared: StateFlow<Boolean>
-        get() = _pointWasCleared.asStateFlow()
     private val _sheetIsShown = MutableStateFlow(false)
     val sheetIsShown: StateFlow<Boolean>
         get() = _sheetIsShown.asStateFlow()
-    private val _pointFromAdvice = MutableStateFlow<String?>(null)
-    val pointFromAdvice: StateFlow<String?>
-        get() = _pointFromAdvice.asStateFlow()
     private val _offers = MutableStateFlow(emptyList<Offer>())
     val offers: StateFlow<List<Offer>>
         get() = _offers.asStateFlow()
@@ -76,14 +71,8 @@ class TicketsViewModel @Inject constructor(
         _points.update { it.copy(arrival = point) }
     }
 
-    fun setArrivalPointFromAdvice(point: String) {
-        _pointFromAdvice.update { point }
-    }
-
     fun clearArrivalPoint() {
         _points.update { it.copy(arrival = null) }
-        _pointWasCleared.update { !it }
-        _pointFromAdvice.update { null }
     }
 
     fun sheetIsShown() {
@@ -101,7 +90,6 @@ class TicketsViewModel @Inject constructor(
                 arrival = it.departure
             )
         }
-        pointFromAdvice.value?.let { _pointFromAdvice.update { null } }
     }
 
     /**

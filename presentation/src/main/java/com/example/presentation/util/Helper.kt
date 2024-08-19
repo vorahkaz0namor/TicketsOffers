@@ -29,11 +29,19 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 /**
+ * Russian locale
+ */
+private val ruLocale = Locale("ru", "RU")
+
+/**
  * Date representation
  */
 internal val dateRepresentation = { value: OffsetDateTime ->
     value.format(
-        DateTimeFormatter.ofPattern("dd MMM")
+        DateTimeFormatter.ofPattern(
+            /* pattern = */ "dd MMM",
+            /* locale = */ ruLocale
+        )
     )
 }
 
@@ -42,8 +50,8 @@ internal val dateRepresentation = { value: OffsetDateTime ->
  */
 internal val dayOfWeekRepresentation = { value: OffsetDateTime ->
     value.dayOfWeek.getDisplayName(
-        TextStyle.SHORT,
-        Locale("ru", "RU")
+        /* style = */ TextStyle.SHORT,
+        /* locale = */ ruLocale
     )
 }
 
@@ -52,7 +60,7 @@ internal val dayOfWeekRepresentation = { value: OffsetDateTime ->
  */
 internal val formatPrice = { price: Int ->
     NumberFormat
-        .getInstance(Locale("ru", "RU"))
+        .getInstance(ruLocale)
         .run {
             isGroupingUsed = true
             format(price)

@@ -84,7 +84,10 @@ class MainFragment : Fragment(R.layout.fragment_main) {
                 point?.let { viewModel.setDeparturePoint(it.toString()) }
             }
             binding.startSearch.foregroundCard.toField.setOnClickListener {
-                SearchSheet().show(childFragmentManager, SearchSheet.TAG)
+                viewModel.points.value.departure?.let {
+                    if (it.isNotBlank())
+                        SearchSheet().show(childFragmentManager, SearchSheet.TAG)
+                }
             }
         }
     }

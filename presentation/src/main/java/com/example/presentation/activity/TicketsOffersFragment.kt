@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.presentation.R
 import com.example.presentation.adatper.MainCompositeAdapter
 import com.example.presentation.adatper.TicketOfferAdapterDelegate
@@ -67,6 +68,9 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
     private fun setupListeners() {
         viewScopeWithRepeat {
             binding.setPointsCard.apply {
+                backIcon.setOnClickListener {
+                    findNavController().navigateUp()
+                }
                 reverseIcon.setOnClickListener {
                     viewModel.reversePoints()
                 }
