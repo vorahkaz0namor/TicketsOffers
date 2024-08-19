@@ -15,9 +15,12 @@ import com.example.presentation.model.Points
 import com.example.presentation.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -60,10 +63,16 @@ class TicketsViewModel @Inject constructor(
                 }
             }
         }
+        @OptIn(ExperimentalCoroutinesApi::class)
+        viewModelScope.launch {
+            points.mapLatest {
+                prefs.edit { putString(FROM_POINT_KEY, it.departure) }
+            }
+                .stateIn(this)
+        }
     }
 
     fun setDeparturePoint(point: String) {
-        prefs.edit { putString(FROM_POINT_KEY, point) }
         _points.update { it.copy(departure = point) }
     }
 
