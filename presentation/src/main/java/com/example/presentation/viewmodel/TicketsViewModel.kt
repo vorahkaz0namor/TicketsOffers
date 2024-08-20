@@ -1,6 +1,7 @@
 package com.example.presentation.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,9 +15,12 @@ import com.example.presentation.model.Points
 import com.example.presentation.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.mapLatest
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -37,15 +41,9 @@ class TicketsViewModel @Inject constructor(
     private val _points = MutableStateFlow(Points())
     val points: StateFlow<Points>
         get() = _points.asStateFlow()
-    private val _pointWasCleared = MutableStateFlow(false)
-    val pointWasCleared: StateFlow<Boolean>
-        get() = _pointWasCleared.asStateFlow()
     private val _sheetIsShown = MutableStateFlow(false)
     val sheetIsShown: StateFlow<Boolean>
         get() = _sheetIsShown.asStateFlow()
-    private val _pointFromAdvice = MutableStateFlow<String?>(null)
-    val pointFromAdvice: StateFlow<String?>
-        get() = _pointFromAdvice.asStateFlow()
     private val _offers = MutableStateFlow(emptyList<Offer>())
     val offers: StateFlow<List<Offer>>
         get() = _offers.asStateFlow()
@@ -65,10 +63,16 @@ class TicketsViewModel @Inject constructor(
                 }
             }
         }
+        @OptIn(ExperimentalCoroutinesApi::class)
+        viewModelScope.launch {
+            points.mapLatest {
+                prefs.edit { putString(FROM_POINT_KEY, it.departure) }
+            }
+                .stateIn(this)
+        }
     }
 
     fun setDeparturePoint(point: String) {
-        prefs.edit { putString(FROM_POINT_KEY, point) }
         _points.update { it.copy(departure = point) }
     }
 
@@ -76,22 +80,16 @@ class TicketsViewModel @Inject constructor(
         _points.update { it.copy(arrival = point) }
     }
 
-    fun setArrivalPointFromAdvice(point: String) {
-        _pointFromAdvice.update { point }
-    }
-
     fun clearArrivalPoint() {
         _points.update { it.copy(arrival = null) }
-        _pointWasCleared.update { !it }
-        _pointFromAdvice.update { null }
     }
 
     fun sheetIsShown() {
-        _sheetIsShown.value = true
+        _sheetIsShown.update { true }
     }
 
     fun sheetIsDismissed() {
-        _sheetIsShown.value = false
+        _sheetIsShown.update { false }
     }
 
     fun reversePoints() {

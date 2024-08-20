@@ -1,13 +1,11 @@
 package com.example.presentation.activity
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
-import androidx.navigation.NavBackStackEntry
 import androidx.navigation.fragment.findNavController
 import com.example.presentation.R
 import com.example.presentation.adatper.AdviceAdapterDelegate
@@ -32,7 +30,7 @@ class SearchSheet : BottomSheetDialogFragment(R.layout.search_sheet_layout) {
         MainCompositeAdapter.Builder()
             .add(
                 AdviceAdapterDelegate(
-                    OnInteractionListenerImpl(viewModel::setArrivalPointFromAdvice)
+                    OnInteractionListenerImpl(viewModel::setArrivalPoint)
                 )
             )
             .build()
@@ -63,16 +61,8 @@ class SearchSheet : BottomSheetDialogFragment(R.layout.search_sheet_layout) {
     @OptIn(ExperimentalCoroutinesApi::class)
     private fun subscribe() {
         viewScopeWithRepeat {
-            viewModel.pointWasCleared.mapLatest {
-                binding.searchCard.toField.setText(
-                    viewModel.points.value.arrival
-                )
-            }
-                .stateIn(this)
-        }
-        viewScopeWithRepeat {
-            viewModel.pointFromAdvice.mapLatest {
-                it?.let { binding.searchCard.toField.setText(it) }
+            viewModel.points.mapLatest { points ->
+                binding.searchCard.toField.setText(points.arrival)
             }
                 .stateIn(this)
         }
@@ -82,13 +72,16 @@ class SearchSheet : BottomSheetDialogFragment(R.layout.search_sheet_layout) {
         viewScopeWithRepeat {
             binding.searchCard.apply {
                 toField.addTextChangedListener { point ->
-                    point?.let { viewModel.setArrivalPoint(it.toString()) }
+                    point?.let {
+                        viewModel.setArrivalPoint(it.toString())
+                        navigateToTicketsOffersFragment()
+                    }
                 }
                 toField.setOnKeyListener { _, keyCode, _ ->
                     if (keyCode == KeyEvent.KEYCODE_NAVIGATE_NEXT ||
                         keyCode == KeyEvent.KEYCODE_ENTER ||
                         keyCode == KeyEvent.KEYCODE_NUMPAD_ENTER)
-                            findNavController().navigate(R.id.ticketsOffersFragment)
+                            navigateToTicketsOffersFragment()
                     true
                 }
                 clearIcon.setOnClickListener {
@@ -121,6 +114,13 @@ class SearchSheet : BottomSheetDialogFragment(R.layout.search_sheet_layout) {
             it.setOnClickListener {
                 findNavController().navigate(R.id.stubFragment)
             }
+        }
+    }
+
+    private fun navigateToTicketsOffersFragment() {
+        viewModel.points.value.arrival?.let {
+            if (it.isNotBlank())
+                findNavController().navigate(R.id.ticketsOffersFragment)
         }
     }
 

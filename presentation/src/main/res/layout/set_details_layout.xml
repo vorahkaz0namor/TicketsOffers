@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppTheme.TextOnDetailCard"
-            android:text="@string/takeoff_date_example" />
+            tools:text="@string/takeoff_date_example" />
 
         <TextView
             android:id="@+id/week_day"
@@ -67,7 +67,7 @@
             android:layout_height="wrap_content"
             style="@style/Widget.AppTheme.TextOnDetailCard"
             android:textColor="@color/color_9f9f9f"
-            android:text="@string/takeoff_week_day_example" />
+            tools:text="@string/takeoff_week_day_example" />
 
         </LinearLayout>
 
