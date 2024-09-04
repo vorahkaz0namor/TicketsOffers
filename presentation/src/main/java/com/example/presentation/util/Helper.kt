@@ -23,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import java.text.FieldPosition
 import java.text.NumberFormat
+import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -53,6 +54,15 @@ internal val dayOfWeekRepresentation = { value: OffsetDateTime ->
         /* style = */ TextStyle.SHORT,
         /* locale = */ ruLocale
     )
+}
+
+internal val toOffsetDateTime = { value: Long? ->
+    val now = OffsetDateTime.now()
+    value?.let {
+        Instant
+            .ofEpochMilli(value)
+            .atOffset(now.offset)
+    } ?: now
 }
 
 /**
