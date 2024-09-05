@@ -1,9 +1,9 @@
 package com.example.presentation.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
-import android.widget.DatePicker
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.presentation.R
@@ -12,18 +12,16 @@ import com.example.presentation.adatper.TicketOfferAdapterDelegate
 import com.example.presentation.databinding.FragmentTicketsOffersBinding
 import com.example.presentation.util.dateRepresentation
 import com.example.presentation.util.dayOfWeekRepresentation
-import com.example.presentation.util.toOffsetDateTime
+import com.example.presentation.util.milliToOffsetDateTime
 import com.example.presentation.util.viewBinding
 import com.example.presentation.util.viewScopeWithRepeat
 import com.example.presentation.viewmodel.TicketsViewModel
 import com.google.android.material.datepicker.CalendarConstraints
-import com.google.android.material.datepicker.DateSelector
 import com.google.android.material.datepicker.DateValidatorPointForward
 import com.google.android.material.datepicker.MaterialDatePicker
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
-import java.time.Instant
 import java.time.OffsetDateTime
 
 class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
@@ -34,15 +32,17 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
             .add(TicketOfferAdapterDelegate())
             .build()
     }
-    private val takeoffDatePicker = MaterialDatePicker.Builder.datePicker()
-        .setTitleText("Select takeoff date")
-        .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
-        .setCalendarConstraints(
-            CalendarConstraints.Builder()
-                .setValidator(DateValidatorPointForward.now())
-                .build()
-        )
-        .build()
+    private val datePicker = { title: String ->
+        MaterialDatePicker.Builder.datePicker()
+            .setTitleText(title)
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .setCalendarConstraints(
+                CalendarConstraints.Builder()
+                    .setValidator(DateValidatorPointForward.now())
+                    .build()
+            )
+            .build()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -72,6 +72,17 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
                 .mapLatest(adapter::submitList)
                 .stateIn(this)
         }
+        viewScopeWithRepeat {
+            viewModel.dates.mapLatest {
+                displayTakeoffDate(it.takeoff)
+                it.comeback?.let { comeback ->
+                    Log.d("COMEBACK DATE SAVE",
+                        "${dateRepresentation(comeback)}," +
+                                " ${dayOfWeekRepresentation(comeback)}")
+                }
+            }
+                .stateIn(this)
+        }
     }
 
     private fun setupListeners() {
@@ -86,21 +97,32 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
             }
         }
         viewScopeWithRepeat {
+            val takeoffDatePicker = datePicker("Select takeoff date")
             binding.detailButtons.takeoffDate.setOnClickListener {
                 takeoffDatePicker.show(childFragmentManager, null)
             }
             takeoffDatePicker.addOnPositiveButtonClickListener {
-                displayTakeoffDate(toOffsetDateTime(takeoffDatePicker.selection))
+                viewModel.setTakeoffDate(milliToOffsetDateTime(takeoffDatePicker.selection))
+            }
+        }
+        viewScopeWithRepeat {
+            val comebackDatePicker = datePicker("Select comeback date")
+            binding.detailButtons.comebackDate.setOnClickListener {
+                comebackDatePicker.show(childFragmentManager, null)
+            }
+            comebackDatePicker.addOnPositiveButtonClickListener {
+                viewModel.setComebackDate(milliToOffsetDateTime(comebackDatePicker.selection))
             }
         }
     }
 
-    private fun displayTakeoffDate(date: OffsetDateTime) {
-        binding.detailButtons.date.text = dateRepresentation(date)
+    private fun displayTakeoffDate(dateTime: OffsetDateTime?) {
+        val displayDate = dateTime ?: OffsetDateTime.now()
+        binding.detailButtons.date.text = dateRepresentation(displayDate)
         binding.detailButtons.weekDay.text =
             getString(
                 R.string.takeoff_week_day,
-                dayOfWeekRepresentation(date)
+                dayOfWeekRepresentation(displayDate)
             )
     }
 }
