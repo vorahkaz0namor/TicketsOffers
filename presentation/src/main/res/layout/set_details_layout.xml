@@ -15,12 +15,21 @@
         style="@style/Widget.AppTheme.DetailCardView">
 
         <LinearLayout
+            android:id="@+id/comeback_date_not_select"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingHorizontal="@dimen/eight_dp"
             android:layout_gravity="center"
             tools:ignore="UseCompoundDrawables">
+
+<!--            <androidx.constraintlayout.widget.Group-->
+<!--                android:id="@+id/comeback_date_not_select"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                app:constraint_references_ids="-->
+<!--                    add_icon, comeback_word-->
+<!--                "/>-->
 
             <ImageView
                 android:id="@+id/add_icon"
@@ -30,13 +39,19 @@
                 />
 
             <TextView
-                android:id="@+id/from_field"
+                android:id="@+id/comeback_word"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/Widget.AppTheme.TextOnDetailCard"
                 android:text="@string/comeback_the_word" />
 
         </LinearLayout>
+
+        <include
+            android:id="@+id/comeback_date_card"
+            android:visibility="gone"
+            layout="@layout/flight_date"
+            />
 
     </androidx.cardview.widget.CardView>
 
@@ -46,30 +61,10 @@
         app:layout_constraintStart_toEndOf="@id/comeback_date"
         style="@style/Widget.AppTheme.DetailCardView">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="@dimen/eight_dp"
-            android:layout_gravity="center"
-            >
-
-        <TextView
-            android:id="@+id/date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppTheme.TextOnDetailCard"
-            tools:text="@string/takeoff_date_example" />
-
-        <TextView
-            android:id="@+id/week_day"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/Widget.AppTheme.TextOnDetailCard"
-            android:textColor="@color/color_9f9f9f"
-            tools:text="@string/takeoff_week_day_example" />
-
-        </LinearLayout>
+        <include
+            android:id="@+id/takeoff_date_card"
+            layout="@layout/flight_date"
+            />
 
     </androidx.cardview.widget.CardView>
 

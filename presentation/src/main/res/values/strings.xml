@@ -9,8 +9,8 @@
     <string name="funny_title">Музыкально отлететь</string>
     <string name="point_image">Point image</string>
     <string name="flight_icon">Flight icon</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="select_takeoff_date">Выберите дату вылета</string>
+    <string name="select_comeback_date">Выберите дату возвращения</string>
     <string name="comeback_the_word">обратно</string>
     <string name="add_comeback_date">Add comeback date</string>
     <string name="passengers_icon">Passengers icon</string>
@@ -20,7 +20,7 @@
     <string name="straight_ways">Прямые рельсы</string>
     <string name="takeoff_date_example">24 фев</string>
     <string name="takeoff_week_day_example">, сб</string>
-    <string name="takeoff_week_day">, %1$s</string>
+    <string name="week_day">, %1$s</string>
     <string name="show_all_tickets">Посмотреть все билеты</string>
     <string name="back_button">Back button</string>
 </resources>

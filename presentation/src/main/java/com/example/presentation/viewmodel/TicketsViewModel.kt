@@ -97,6 +97,10 @@ class TicketsViewModel @Inject constructor(
         _dates.update { it.copy(comeback = dateTime) }
     }
 
+    fun clearFlightDates() {
+        _dates.update { Dates() }
+    }
+
     fun sheetIsShown() {
         _sheetIsShown.update { true }
     }

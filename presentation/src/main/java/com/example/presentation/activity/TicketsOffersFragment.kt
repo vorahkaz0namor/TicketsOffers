@@ -4,11 +4,14 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.activity.addCallback
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.presentation.R
 import com.example.presentation.adatper.MainCompositeAdapter
 import com.example.presentation.adatper.TicketOfferAdapterDelegate
+import com.example.presentation.databinding.FlightDateBinding
 import com.example.presentation.databinding.FragmentTicketsOffersBinding
 import com.example.presentation.util.dateRepresentation
 import com.example.presentation.util.dayOfWeekRepresentation
@@ -44,6 +47,13 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
             .build()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            customNavigateUp()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
@@ -53,7 +63,6 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
 
     private fun init() {
         binding.recommsList.adapter = adapter
-        displayTakeoffDate(OffsetDateTime.now())
     }
 
     @OptIn(ExperimentalCoroutinesApi::class)
@@ -74,11 +83,11 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
         }
         viewScopeWithRepeat {
             viewModel.dates.mapLatest {
-                displayTakeoffDate(it.takeoff)
-                it.comeback?.let { comeback ->
-                    Log.d("COMEBACK DATE SAVE",
-                        "${dateRepresentation(comeback)}," +
-                                " ${dayOfWeekRepresentation(comeback)}")
+                binding.detailButtons.apply {
+                    comebackDateNotSelect.isVisible = it.comeback == null
+                    comebackDateCard.root.isVisible = it.comeback != null
+                    displayFlightDate(it.comeback, comebackDateCard)
+                    displayFlightDate(it.takeoff, takeoffDateCard)
                 }
             }
                 .stateIn(this)
@@ -89,7 +98,7 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
         viewScopeWithRepeat {
             binding.setPointsCard.apply {
                 backIcon.setOnClickListener {
-                    findNavController().navigateUp()
+                    customNavigateUp()
                 }
                 reverseIcon.setOnClickListener {
                     viewModel.reversePoints()
@@ -97,7 +106,7 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
             }
         }
         viewScopeWithRepeat {
-            val takeoffDatePicker = datePicker("Select takeoff date")
+            val takeoffDatePicker = datePicker(getString(R.string.select_takeoff_date))
             binding.detailButtons.takeoffDate.setOnClickListener {
                 takeoffDatePicker.show(childFragmentManager, null)
             }
@@ -106,7 +115,7 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
             }
         }
         viewScopeWithRepeat {
-            val comebackDatePicker = datePicker("Select comeback date")
+            val comebackDatePicker = datePicker(getString(R.string.select_comeback_date))
             binding.detailButtons.comebackDate.setOnClickListener {
                 comebackDatePicker.show(childFragmentManager, null)
             }
@@ -116,13 +125,21 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
         }
     }
 
-    private fun displayTakeoffDate(dateTime: OffsetDateTime?) {
+    private fun displayFlightDate(
+        dateTime: OffsetDateTime?,
+        dateBinding: FlightDateBinding
+    ) {
         val displayDate = dateTime ?: OffsetDateTime.now()
-        binding.detailButtons.date.text = dateRepresentation(displayDate)
-        binding.detailButtons.weekDay.text =
+        dateBinding.date.text = dateRepresentation(displayDate)
+        dateBinding.weekDay.text =
             getString(
-                R.string.takeoff_week_day,
+                R.string.week_day,
                 dayOfWeekRepresentation(displayDate)
             )
+    }
+
+    private fun customNavigateUp() {
+        viewModel.clearFlightDates()
+        findNavController().navigateUp()
     }
 }

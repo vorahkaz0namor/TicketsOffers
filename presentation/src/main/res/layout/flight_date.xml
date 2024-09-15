@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:paddingHorizontal="@dimen/eight_dp"
+    android:layout_gravity="center"
+    tools:background="@color/color_2f3035"
+    >
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppTheme.TextOnDetailCard"
+        tools:text="@string/takeoff_date_example" />
+
+    <TextView
+        android:id="@+id/week_day"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.AppTheme.TextOnDetailCard"
+        android:textColor="@color/color_9f9f9f"
+        tools:text="@string/takeoff_week_day_example" />
+
+</LinearLayout>
