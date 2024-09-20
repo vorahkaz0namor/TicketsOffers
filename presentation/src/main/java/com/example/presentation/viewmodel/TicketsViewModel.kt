@@ -11,6 +11,7 @@ import com.example.data.model.TicketOffer
 import com.example.domain.onFailure
 import com.example.domain.onSuccess
 import com.example.domain.useCases.UseCase
+import com.example.presentation.model.Dates
 import com.example.presentation.model.Points
 import com.example.presentation.model.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,6 +24,7 @@ import kotlinx.coroutines.flow.mapLatest
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.OffsetDateTime
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,6 +43,9 @@ class TicketsViewModel @Inject constructor(
     private val _points = MutableStateFlow(Points())
     val points: StateFlow<Points>
         get() = _points.asStateFlow()
+    private val _dates = MutableStateFlow(Dates())
+    val dates: StateFlow<Dates>
+        get() = _dates.asStateFlow()
     private val _sheetIsShown = MutableStateFlow(false)
     val sheetIsShown: StateFlow<Boolean>
         get() = _sheetIsShown.asStateFlow()
@@ -82,6 +87,18 @@ class TicketsViewModel @Inject constructor(
 
     fun clearArrivalPoint() {
         _points.update { it.copy(arrival = null) }
+    }
+
+    fun setTakeoffDate(dateTime: OffsetDateTime?) {
+        _dates.update { it.copy(takeoff = dateTime) }
+    }
+
+    fun setComebackDate(dateTime: OffsetDateTime?) {
+        _dates.update { it.copy(comeback = dateTime) }
+    }
+
+    fun clearFlightDates() {
+        _dates.update { Dates() }
     }
 
     fun sheetIsShown() {

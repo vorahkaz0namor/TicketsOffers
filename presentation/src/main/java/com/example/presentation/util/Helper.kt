@@ -1,7 +1,6 @@
 package com.example.presentation.util
 
 import android.app.Activity
-import android.app.Application
 import android.content.Context
 import android.os.Build
 import android.util.Log
@@ -9,8 +8,6 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import androidx.annotation.ColorInt
-import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
@@ -18,11 +15,10 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.resources.R
 import com.example.presentation.model.UiState
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
-import java.text.FieldPosition
 import java.text.NumberFormat
+import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.TextStyle
@@ -53,6 +49,14 @@ internal val dayOfWeekRepresentation = { value: OffsetDateTime ->
         /* style = */ TextStyle.SHORT,
         /* locale = */ ruLocale
     )
+}
+
+internal val milliToOffsetDateTime = { value: Long? ->
+    value?.let {
+        Instant
+            .ofEpochMilli(value)
+            .atOffset(OffsetDateTime.now().offset)
+    }
 }
 
 /**
