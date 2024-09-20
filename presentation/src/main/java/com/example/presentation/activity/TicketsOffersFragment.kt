@@ -36,12 +36,21 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
             .build()
     }
     private val datePicker = { title: String ->
+        val condition = title == getString(R.string.select_comeback_date) &&
+                viewModel.dates.value.takeoff != null
         MaterialDatePicker.Builder.datePicker()
             .setTitleText(title)
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
             .setCalendarConstraints(
                 CalendarConstraints.Builder()
-                    .setValidator(DateValidatorPointForward.now())
+                    .setValidator(
+                        if (condition)
+                            DateValidatorPointForward.from(
+                                viewModel.dates.value.takeoff!!.toEpochSecond()
+                            )
+                        else
+                            DateValidatorPointForward.now()
+                    )
                     .build()
             )
             .build()
