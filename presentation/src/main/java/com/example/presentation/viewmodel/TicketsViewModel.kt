@@ -1,7 +1,6 @@
 package com.example.presentation.viewmodel
 
 import android.content.Context
-import android.util.Log
 import androidx.core.content.edit
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +13,7 @@ import com.example.domain.useCases.UseCase
 import com.example.presentation.model.Dates
 import com.example.presentation.model.Points
 import com.example.presentation.model.UiState
+import com.example.presentation.util.milliToOffsetDateTime
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -89,8 +89,11 @@ class TicketsViewModel @Inject constructor(
         _points.update { it.copy(arrival = null) }
     }
 
-    fun setTakeoffDate(dateTime: OffsetDateTime?) {
-        _dates.update { it.copy(takeoff = dateTime) }
+    fun setTakeoffDate(selection: Long?) {
+        _dates.update { it.copy(
+            takeoff = milliToOffsetDateTime(selection),
+            takeoffSelection = selection
+        ) }
     }
 
     fun setComebackDate(dateTime: OffsetDateTime?) {

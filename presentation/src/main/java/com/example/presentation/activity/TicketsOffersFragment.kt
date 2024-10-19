@@ -40,13 +40,18 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
                 viewModel.dates.value.takeoff != null
         MaterialDatePicker.Builder.datePicker()
             .setTitleText(title)
-            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .setSelection(
+                if (condition)
+                    viewModel.dates.value.takeoffSelection!!
+                else
+                    MaterialDatePicker.todayInUtcMilliseconds()
+            )
             .setCalendarConstraints(
                 CalendarConstraints.Builder()
                     .setValidator(
                         if (condition)
                             DateValidatorPointForward.from(
-                                viewModel.dates.value.takeoff!!.toEpochSecond()
+                                viewModel.dates.value.takeoffSelection!!
                             )
                         else
                             DateValidatorPointForward.now()
@@ -115,21 +120,26 @@ class TicketsOffersFragment : Fragment(R.layout.fragment_tickets_offers) {
             }
         }
         viewScopeWithRepeat {
-            val takeoffDatePicker = datePicker(getString(R.string.select_takeoff_date))
             binding.detailButtons.takeoffDate.setOnClickListener {
+                val takeoffDatePicker = datePicker(getString(R.string.select_takeoff_date))
+                takeoffDatePicker.addOnPositiveButtonClickListener {
+                    viewModel.setTakeoffDate(takeoffDatePicker.selection)
+                }
                 takeoffDatePicker.show(childFragmentManager, null)
-            }
-            takeoffDatePicker.addOnPositiveButtonClickListener {
-                viewModel.setTakeoffDate(milliToOffsetDateTime(takeoffDatePicker.selection))
             }
         }
         viewScopeWithRepeat {
-            val comebackDatePicker = datePicker(getString(R.string.select_comeback_date))
             binding.detailButtons.comebackDate.setOnClickListener {
+                val comebackDatePicker = datePicker(getString(R.string.select_comeback_date))
+                comebackDatePicker.addOnPositiveButtonClickListener {
+                    viewModel.setComebackDate(milliToOffsetDateTime(comebackDatePicker.selection))
+                }
                 comebackDatePicker.show(childFragmentManager, null)
             }
-            comebackDatePicker.addOnPositiveButtonClickListener {
-                viewModel.setComebackDate(milliToOffsetDateTime(comebackDatePicker.selection))
+        }
+        viewScopeWithRepeat {
+            binding.allTickets.setOnClickListener {
+
             }
         }
     }
